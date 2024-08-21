@@ -20,11 +20,11 @@ enum Commands {
 		#[arg(long)]
 		url: String,
 
-		///ipam username
+		///ipam username (optional)
 		#[arg(short, long)]
 		username: Option<String>,
 
-		///ipam password
+		///ipam password (optional)
 		#[arg(short, long)]
 		password: Option<String>,
 	},

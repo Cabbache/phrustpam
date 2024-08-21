@@ -19,12 +19,12 @@ Options:
 
 ### Set config
 ```
-Usage: phrustpam set-conf --url <URL> --username <USERNAME> --password <PASSWORD>
+Usage: phrustpam set-conf [OPTIONS] --url <URL>
 
 Options:
       --url <URL>            url of phpipam instance, e.g http://127.0.0.1:1234
-  -u, --username <USERNAME>  ipam username
-  -p, --password <PASSWORD>  ipam password
+  -u, --username <USERNAME>  ipam username (optional)
+  -p, --password <PASSWORD>  ipam password (optional)
   -h, --help                 Print help
 ```
 This writes config to `~/phrustpam.cnf`
