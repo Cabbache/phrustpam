@@ -22,11 +22,11 @@ enum Commands {
 
 		///ipam username
 		#[arg(short, long)]
-		username: String,
+		username: Option<String>,
 
 		///ipam password
 		#[arg(short, long)]
-		password: String,
+		password: Option<String>,
 	},
 	Search {
 		///query text
@@ -79,6 +79,7 @@ fn parse_conf(conf: &String) -> Result<Conf, String> {
 fn get_token(config: &Conf) -> Result<String, Box<dyn std::error::Error>> {
 	let username = config.username.clone().unwrap_or_else(|| {
 		print!("username: ");
+		std::io::stdout().flush().unwrap();
 		let stdin = io::stdin();
 		let mut it = stdin.lock().lines();
 		it.next().unwrap().unwrap()
@@ -174,8 +175,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 			let mut file = File::create(&cnfpath)?;
 			url.parse::<Url>().expect("Invalid url");
 			let data = format!(
-				"url={}\nusername={}\npassword={}\n",
-				url, username, password
+				"url={}\n{}{}",
+				url,
+				username.map(|s| format!("username={}\n", s)).unwrap_or(String::new()),
+				password.map(|s| format!("password={}\n", s)).unwrap_or(String::new()),
 			);
 			file.write_all(data.as_bytes())?;
 		}
